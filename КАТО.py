@@ -25,6 +25,8 @@ with open("КАТО_old.csv", 'r', newline="", encoding="utf-8") as csv_file:
     output_fields.append("id")
     output_fields.append("parent_id")
 
+
+
     for i, row in enumerate(rows, start=1):
         row['id'] = i
 
@@ -39,11 +41,16 @@ with open("КАТО_old.csv", 'r', newline="", encoding="utf-8") as csv_file:
         else:
             row["parent_id"] = None
 
+        if row['te'].endswith('.0'):
+            row['te'] = str(int(float(row['te'])))
+
 with open('КАТО_new.csv', 'w', newline="", encoding="utf-8") as csv_new:
     writer = csv.DictWriter(
         csv_new,
         fieldnames=output_fields,
         extrasaction='ignore')
+
+
 
     writer.writeheader()
     for row in rows:
